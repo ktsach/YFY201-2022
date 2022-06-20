@@ -53,19 +53,19 @@ delta_from_half = 50.0                  # init val of current population distanc
 print(" time = 0  | non-decayed population :", N,"/",N,"atoms ( 100 % ) ") # print population initial condition
 
 # ------------------------------------------------------------------------------------------------------------------------
-for time in tV[1:-1]:                   # time evolution loop: current time taken out of mc-steps time vector tV (tV[0]=0)
+for time in tV[1:]:                     # time evolution loop: current time taken out of mc-steps time vector tV (tV[0]=0)
   
     # At this mc time-step, some atoms of the remaining population may stochastically decay:
     for atom in range(1, remaining_atoms + 1):
     
         my_random = random.random()                     # get a pseudo-random float in [0,1) from python's pseudorandoms generator
-        mc_tries += 1                                   # increase index of mc tries
-        
+         
         if (my_random < lambda1):                       # probabilistic rule for stochastic radioactive decay of a certain atom
             remaining_atoms -= 1                        # -> revise non-decayed atoms population respectively
             
         if (plot_histogram):
             rndV[mc_tries] = my_random                  # store this pseudo-random to vector, to do some graph later on
+        mc_tries += 1                                   # increase index of mc tries
     # --------------------------------
     
     rem_atomsV[time] = remaining_atoms                  # store current population number @ vector indexed by mc time-steps
